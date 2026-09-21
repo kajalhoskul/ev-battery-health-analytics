@@ -1,0 +1,19 @@
+version: 2
+
+models:
+  - name: mart_vehicle_battery_health
+    columns:
+      - name: vehicle_id
+        tests: [unique, not_null]
+      - name: current_soh_pct
+        tests: [not_null]
+
+  - name: mart_fleet_health_summary
+    columns:
+      - name: region
+        tests: [unique, not_null]
+
+  - name: mart_soh_trend_monthly
+    columns:
+      - name: avg_soh_pct
+        tests: [not_null]

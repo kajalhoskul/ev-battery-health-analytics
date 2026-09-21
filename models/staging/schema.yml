@@ -1,0 +1,36 @@
+version: 2
+
+models:
+  - name: stg_vehicles
+    columns:
+      - name: vehicle_id
+        tests: [unique, not_null]
+
+  - name: stg_battery_readings
+    columns:
+      - name: vehicle_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_vehicles')
+                field: vehicle_id
+      - name: state_of_health_pct
+        tests: [not_null]
+
+  - name: stg_charging_sessions
+    columns:
+      - name: charge_id
+        tests: [unique, not_null]
+      - name: vehicle_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_vehicles')
+                field: vehicle_id
+      - name: charger_type
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['AC_L2', 'DC_FAST']
